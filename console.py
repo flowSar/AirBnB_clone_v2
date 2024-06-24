@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         print(new_instance.id)
         storage.save()
-        
+
         data = {}
         for param in arguments[1:]:
             if '=' not in param:
@@ -145,7 +145,6 @@ class HBNBCommand(cmd.Cmd):
             for key, value in data.items():
                 cmd = f"{class_name} {new_instance.id} {key} {value}"
                 self.do_update(cmd)
-        #print(data)
 
     def help_create(self):
         """ Help information for the create method """
@@ -341,6 +340,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
