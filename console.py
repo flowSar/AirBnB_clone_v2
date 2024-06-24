@@ -143,7 +143,6 @@ class HBNBCommand(cmd.Cmd):
                     data[key] = value.replace('"', '\"').replace('_', ' ')
         if data:
             for key, value in data.items():
-                # if "\"" in value[:1] and "\"" in value[1:]:
                 cmd = f"{class_name} {new_instance.id} {key} {value}"
                 self.do_update(cmd)
 
