@@ -115,16 +115,37 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+        arguments = args.split(' ')
+        class_name = arguments[0]
+        if not class_name:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+
+        new_instance = HBNBCommand.classes[class_name]()
         storage.save()
         print(new_instance.id)
         storage.save()
+        
+        data = {}
+        for param in arguments[1:]:
+            if '=' not in param:
+                continue
+            key, value = param.split('=', 1)
+            if '.' in value:
+                data[key] = float(value)
+            else:
+                try:
+                    data[key] = int(value)
+                except ValueError:
+                    data[key] = value.replace('"', '\"').replace('_', ' ')
+        if data:
+            for key, value in data.items():
+                cmd = f"{class_name} {new_instance.id} {key} {value}"
+                self.do_update(cmd)
+        #print(data)
 
     def help_create(self):
         """ Help information for the create method """
@@ -134,9 +155,10 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """ Method to show an individual object """
         new = args.partition(" ")
+        print(new)
         c_name = new[0]
         c_id = new[2]
-
+        print(c_id)
         # guard against trailing args
         if c_id and ' ' in c_id:
             c_id = c_id.partition(' ')[0]
