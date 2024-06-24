@@ -3,7 +3,9 @@
 
 
 
-number = '10h'
+value = '"value"'
 
-if 1,2,3,4,5,6,7,8,9,0 in number:
-    print('number found')
+if "\"" in value[:1] and "\"" in value[1:]:
+    print('found')
+else:
+    print('not found')
