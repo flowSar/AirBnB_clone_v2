@@ -1,6 +1,7 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 """ Test delete feature
 """
 
 import os
-print(os.getenv('MY_NAME'))
+from sqlalchemy import Column, String, Integer
+print(os.getenv('PATH'))

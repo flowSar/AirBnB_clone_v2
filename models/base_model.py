@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
@@ -9,21 +9,18 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
 
         if not kwargs:
-            
-            self.id = Column(String(60), unique=True, nullable=False, primary_key=True)
-            self.created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-            self.updated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-            # self.id = str(uuid.uuid4())
-            # self.created_at = datetime.now()
-            # self.updated_at = datetime.now()
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
         else:
             """turn kwargs into instnce attribute"""
-            for key, value in kwargs.items():
-                self.key - value
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
             kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
