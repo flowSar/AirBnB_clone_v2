@@ -17,8 +17,8 @@ class FileStorage:
                     selected[key] = FileStorage.__objects[key]
             return selected
 
-        # return FileStorage.__objects
-        return selected
+        return FileStorage.__objects
+
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
