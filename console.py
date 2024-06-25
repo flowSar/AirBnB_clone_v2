@@ -135,7 +135,10 @@ class HBNBCommand(cmd.Cmd):
                 continue
             key, value = param.split('=', 1)
             if '.' in value:
-                data[key] = float(value)
+                try:
+                    data[key] = float(value)
+                except ValueError:
+                    data[key] = value.replace('"', '\"').replace('_', ' ')
             else:
                 try:
                     data[key] = int(value)

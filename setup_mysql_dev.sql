@@ -1,8 +1,8 @@
 -- create two databases and and user=hbnb_dev
--- grant ll privileges to hbnb_dev_db and select for performance_schema
+-- grant all privileges to hbnb_dev_db and select for performance_schema
 
 CREATE database IF NOT EXISTS hbnb_dev_db;
-CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
+CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'Root#890';
 GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
 FLUSH PRIVILEGES;
 CREATE database IF NOT EXISTS performance_schema;
