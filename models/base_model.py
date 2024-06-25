@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
@@ -7,11 +7,13 @@ from sqlalchemy import String, Column, DateTime
 
 Base = declarative_base()
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
 
@@ -52,11 +54,11 @@ class BaseModel:
         for key in dictionary:
             if key == '_sa_instance_state':
                 found = key
-        
+
         if found:
             del dictionary['_sa_instance_state']
         return dictionary
-    
+
     def delete(self):
         from models import storage
         storage.delete(self)
