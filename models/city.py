@@ -12,7 +12,6 @@ class City(BaseModel, Base):
                       ForeignKey('states.id',
                                  ondelete='CASCADE'), nullable=True)
     name = Column(String(128), nullable=True)
-    # state = relationship('State', back_populates='cities')
     state = relationship('State', back_populates='cities')
     places = relationship('Place', backref='cities',
                           cascade='all, delete, delete-orphan')
