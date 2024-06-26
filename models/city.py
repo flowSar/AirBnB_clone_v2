@@ -15,4 +15,4 @@ class City(BaseModel, Base):
     # state = relationship('State', back_populates='cities')
     state = relationship('State', back_populates='cities')
     places = relationship('Place', backref='cities',
-                            cascade='all, delete, delete-orphan')
+                          cascade='all, delete, delete-orphan')

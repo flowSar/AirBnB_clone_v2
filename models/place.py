@@ -12,8 +12,9 @@ place_amenity = Table('place_amenity', Base.metadata,
                              ForeignKey('amenities.id'), primary_key=True,
                              nullable=False))
 
+
 class Place(BaseModel, Base):
-    """ A place to stay """
+    """ place class that is mapping to table places in database """
     __tablename__ = 'places'
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -26,7 +27,7 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     reviews = relationship("Review", backref="place",
-                            cascade="all, delete")
+                           cascade="all, delete")
     amenities = relationship(
         "Amenity", secondary=place_amenity,
         back_populates="place_amenities",
