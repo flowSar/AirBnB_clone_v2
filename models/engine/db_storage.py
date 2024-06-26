@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 """
     this module to deling with mysql database
 """
@@ -37,18 +37,31 @@ class DBStorage:
 
     def all(self, cls=None):
         """lod from db all object or specific object depend on cls"""
-        class_names = ['User', 'State', 'City', 'Amenity', 'Place', 'Review']
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+
+        class_names = [User, State, City, Amenity, Place, Review]
         objects = {}
         if cls:
             instance = self.__session.query(cls.__name__).all()
             return {f'{cls.__name__}.{instance.id}': instance}
         for class_name in class_names:
-            instance = self.__session.query(class_name).all()
-            objects[f'{class_name}.{instance.id}'] = instance
+            try:
+                instance = self.__session.query(class_name).all()
+                objects[f'{class_name.__name__}.{instance.id}'] = instance
+            except Exception as e:
+                pass
+
         return objects
 
     def new(self, obj):
         """add new object to db"""
+        self.reload()
         self.__session.add(obj)
 
     def save(self):
@@ -66,8 +79,6 @@ class DBStorage:
     def reload(self):
         """create db tables and add session"""
         from models.base_model import Base
-        from models.state import State
-        from models.city import City
         Base.metadata.create_all(self.__engine)
         session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session)

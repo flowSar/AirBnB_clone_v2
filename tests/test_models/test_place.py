@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python33
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.place import Place

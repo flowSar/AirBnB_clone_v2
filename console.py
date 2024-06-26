@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 """ Console Module """
 import cmd
 import sys
@@ -125,9 +125,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         new_instance = HBNBCommand.classes[class_name]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+        # new_instance.save()
+        # print(new_instance.id)
+        # storage.save()
 
         data = {}
         for param in arguments[1:]:
@@ -146,8 +146,11 @@ class HBNBCommand(cmd.Cmd):
                     data[key] = value.replace('"', '\"').replace('_', ' ')
         if data:
             for key, value in data.items():
-                cmd = f"{class_name} {new_instance.id} {key} {value}"
-                self.do_update(cmd)
+                setattr(new_instance, key, value)
+
+        new_instance.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
