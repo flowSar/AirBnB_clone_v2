@@ -44,25 +44,29 @@ class DBStorage:
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-
-        class_names = [User, State, City, Amenity, Place, Review]
+        # class_names = [User, State, City, Amenity, Place, Review]
+        class_names = {'User': User, 'State': State, 'City': City,
+                       'Amenity': Amenity, 'Place': Place, 'Review': Review}
         objects = {}
         if cls:
             instances = self.__session.query(cls.__name__).all()
             for instance in instances:
+                del instance._sa_instance_state
                 objects[f'{cls.__name__}.{instance.id}'] = instance
             return objects
             # return {f'{cls.__name__}.{instance.id}': instance}
         else:
-            for class_name in class_names:
+            for class_name in class_names.values():
                 try:
                     instances = self.__session.query(class_name).all()
+
                     for instance in instances:
-                        objects[f'{class_name.__name__}.{instance.id}'] = instance
-                    # objects[f'{class_name.__name__}.{instance.id}'] = instance
+                        del instance._sa_instance_state
+                        objects[f'{class_name.__name__}.{instance.id}']
+                        = instance
+
                 except Exception as e:
                     pass
-
         return objects
 
     def new(self, obj):

@@ -14,8 +14,11 @@ class State(BaseModel, Base):
     """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-
-    if os.getenv('') != 'db':
+    
+    if os.getenv('') == 'db':
+        cities = relationship('City', backref='state',
+                              cascade='all, delete, delete-orphan')
+    else:
         from models import storage
         from .city import City
         cities_list = []
@@ -27,6 +30,3 @@ class State(BaseModel, Base):
                 if state_id == State.id:
                     cities_list.append(city)
             return cities_list
-    else:
-        cities = relationship('City', backref='state',
-                              cascade='all, delete, delete-orphan')
