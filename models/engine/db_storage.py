@@ -59,11 +59,10 @@ class DBStorage:
             for class_name in class_names.values():
                 try:
                     instances = self.__session.query(class_name).all()
-
                     for instance in instances:
                         del instance._sa_instance_state
-                        objects[f'{class_name.__name__}.{instance.id}']
-                        = instance
+                        objects[f'{class_name.__name__}\
+                                .{instance.id}'] = instance
 
                 except Exception as e:
                     pass
