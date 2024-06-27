@@ -36,7 +36,7 @@ class DBStorage:
             Base.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """load from db all object or specific object depend on cls"""
+        """lod from db all object or specific object depend on cls"""
         from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
@@ -48,17 +48,13 @@ class DBStorage:
         class_names = [User, State, City, Amenity, Place, Review]
         objects = {}
         if cls:
-            instances = self.__session.query(cls.__name__).all()
-            for instance in instances:
-                objects[f'{cls.__name__}.{instance.id}'] = instance
-            return objects
+            instance = self.__session.query(cls.__name__).all()
+            return {f'{cls.__name__}.{instance.id}': instance}
         else:
             for class_name in class_names:
                 try:
-                    instances = self.__session.query(class_name).all()
+                    instance = self.__session.query(class_name).all()
                     objects[f'{class_name.__name__}.{instance.id}'] = instance
-                    for instance in instances:
-                        objects[f'{class_name.__name__}.{instance.id}'] = instance
                 except Exception as e:
                     pass
 
