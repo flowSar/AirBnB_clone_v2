@@ -48,13 +48,18 @@ class DBStorage:
         class_names = [User, State, City, Amenity, Place, Review]
         objects = {}
         if cls:
-            instance = self.__session.query(cls.__name__).all()
-            return {f'{cls.__name__}.{instance.id}': instance}
+            instances = self.__session.query(cls.__name__).all()
+            for instance in instances:
+                objects[f'{cls.__name__}.{instance.id}'] = instance
+            return objects
+            # return {f'{cls.__name__}.{instance.id}': instance}
         else:
             for class_name in class_names:
                 try:
-                    instance = self.__session.query(class_name).all()
-                    objects[f'{class_name.__name__}.{instance.id}'] = instance
+                    instances = self.__session.query(class_name).all()
+                    for instance in instances:
+                        objects[f'{class_name.__name__}.{instance.id}'] = instance
+                    # objects[f'{class_name.__name__}.{instance.id}'] = instance
                 except Exception as e:
                     pass
 
