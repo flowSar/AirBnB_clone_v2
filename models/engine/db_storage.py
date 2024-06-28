@@ -2,6 +2,13 @@
 """
     this module to deling with mysql database
 """
+from models.base_model import Base, BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 import os
@@ -22,7 +29,6 @@ class DBStorage:
             that was needed for connecting to db like user host and
             password
         """
-        from models.base_model import Base
         user = os.getenv('HBNB_MYSQL_USER')
         passwrd = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
@@ -37,13 +43,6 @@ class DBStorage:
 
     def all(self, cls=None):
         """lod from db all object or specific object depend on cls"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
         # class_names = [User, State, City, Amenity, Place, Review]
         class_names = {'User': User, 'State': State, 'City': City,
                        'Amenity': Amenity, 'Place': Place, 'Review': Review}
@@ -61,16 +60,16 @@ class DBStorage:
                     instances = self.__session.query(class_name).all()
                     for instance in instances:
                         del instance._sa_instance_state
-                        objects[f'{class_name.__name__}\
-                                .{instance.id}'] = instance
+                        objects[f'{class_name.__name__}.\
+                                {instance.id}'] = instance
 
                 except Exception as e:
                     pass
+        
         return objects
 
     def new(self, obj):
         """add new object to db"""
-        self.reload()
         self.__session.add(obj)
 
     def save(self):
@@ -87,8 +86,6 @@ class DBStorage:
 
     def reload(self):
         """create db tables and add session"""
-        from models.base_model import Base
         Base.metadata.create_all(self.__engine)
         session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session)
-        self.__session.commit()

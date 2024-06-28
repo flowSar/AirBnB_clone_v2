@@ -125,8 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        new_instance = HBNBCommand.classes[class_name]()
-
         data = {}
         for param in arguments[1:]:
             if '=' not in param:
@@ -136,13 +134,15 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     data[key] = float(value)
                 except ValueError:
-                    data[key] = value.replace('"', '\"').replace('_', ' ')
+                    data[key] = value.replace('"', '').replace('_', ' ')
             else:
                 try:
                     data[key] = int(value)
                 except ValueError:
-                    data[key] = value.replace('"', '\"').replace('_', ' ')
+                    data[key] = value.replace('"', '').replace('_', ' ')
+        new_instance = HBNBCommand.classes[class_name]()
         if data:
+            # new_instance = HBNBCommand.classes[class_name](**data)
             for key, value in data.items():
                 setattr(new_instance, key, value)
 
