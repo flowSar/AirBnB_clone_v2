@@ -142,7 +142,6 @@ class HBNBCommand(cmd.Cmd):
                     data[key] = value.replace('"', '').replace('_', ' ')
         new_instance = HBNBCommand.classes[class_name]()
         if data:
-            # new_instance = HBNBCommand.classes[class_name](**data)
             for key, value in data.items():
                 setattr(new_instance, key, value)
 

@@ -53,7 +53,6 @@ class DBStorage:
                 del instance._sa_instance_state
                 objects[f'{cls.__name__}.{instance.id}'] = instance
             return objects
-            # return {f'{cls.__name__}.{instance.id}': instance}
         else:
             for class_name in class_names.values():
                 try:
