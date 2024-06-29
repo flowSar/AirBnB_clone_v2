@@ -10,6 +10,11 @@ from models.amenity import Amenity
 import os
 
 
+#!/usr/bin/python3
+""" Test link Many-To-Many Place <> Amenity
+"""
+from models import *
+
 # creation of a State
 state = State(name="California")
 state.save()
@@ -17,7 +22,7 @@ state.save()
 # creation of a City
 city = City(state_id=state.id, name="San Francisco")
 city.save()
-"""
+
 # creation of a User
 user = User(email="john@snow.com", password="johnpwd")
 user.save()
@@ -46,6 +51,5 @@ place_2.amenities.append(amenity_2)
 place_2.amenities.append(amenity_3)
 
 storage.save()
-"""
-print("OK")
 
+print("OK")

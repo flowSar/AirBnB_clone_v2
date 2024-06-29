@@ -63,9 +63,10 @@ class Place(BaseModel, Base):
             """getter method return list of amenity instnce based on
                amenity_ids
             """
+            import models
             Amenity_list = []
-            for instance in storage.all(Amenity):
-                for am_id in amenity_ids:
+            for instance in models.storage.all(Amenity):
+                for am_id in self.amenity_ids:
                     if am_id == instance.id:
                         Amenity_list.append(instance)
             return Amenity_list
