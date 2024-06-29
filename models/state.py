@@ -13,12 +13,12 @@ class State(BaseModel, Base):
             name: state name
     """
     __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
-    
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state',
                               cascade='all, delete, delete-orphan')
     else:
+        name = ''
         import models
         from .city import City
         cities_list = []
