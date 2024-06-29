@@ -64,7 +64,7 @@ class DBStorage:
 
                 except Exception as e:
                     pass
-        
+
         return objects
 
     def new(self, obj):
