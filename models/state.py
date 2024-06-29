@@ -19,12 +19,12 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state',
                               cascade='all, delete, delete-orphan')
     else:
-        from models import storage
+        import models
         from .city import City
         cities_list = []
         @property
         def cities(self):
-            cities_instances = storage.all(City)
+            cities_instances = models.storage.all(City)
             for city in cities_instances.values():
                 state_id = city['state_id']
                 if state_id == State.id:
