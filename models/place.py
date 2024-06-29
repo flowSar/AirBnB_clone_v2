@@ -17,6 +17,7 @@ place_amenity = Table(
            primary_key=True, nullable=False)
 )
 
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
@@ -33,9 +34,10 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         reviews = relationship('Review', backref='place',
-                            cascade='all, delete, delete-orphan')
-        amenities = relationship('Amenity', secondary=place_amenity,viewonly=False,
-                                backref='place')
+                               cascade='all, delete, delete-orphan')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False,
+                                 backref='place')
     else:
         city_id = user_id = name = description = ''
         number_rooms = number_bathrooms = max_guest = price_by_night = 0
@@ -55,11 +57,11 @@ class Place(BaseModel, Base):
                 if Place.id == Review.place_id:
                     reviews_list.append(re_object)
             return reviews_list
-        
+
         @property
         def amenities(self):
             """getter method return list of amenity instnce based on
-               amenity_ids 
+               amenity_ids
             """
             Amenity_list = []
             for instance in storage.all(Amenity):
@@ -67,12 +69,9 @@ class Place(BaseModel, Base):
                     if am_id == instance.id:
                         Amenity_list.append(instance)
             return Amenity_list
-                
-        
+
         @amenities.setter
         def Amenity(self, obj):
             """setter method for amenity_ids"""
             if isinstance(obj, Amenity):
                 self.amenity_ids.append(obj.id)
-        
-
