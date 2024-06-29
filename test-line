@@ -12,3 +12,7 @@ echo 'create City state_id="95a5abab-aa65-4861-9bc6-1da4a36069aa" name="San_Fran
 echo 'create City state_id="09485a11-b21b-4b0b-a9a8-afe0aa40c50f" name="San_Francisco"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=Root#890 HBNB_MYSQL_HOST=127.0.0.1 HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 console.py
 
 insert into cities (id, created_at, updated_at, name, state_id) values ('9795f939-7962-452c-90c4-0a9391d5e576', '2024-06-27 22:27:59', '2024-06-27 22:27:59', 'San_Francisco', '9795f939-7962-452c-90c4-0a9391d5e576');
+
+echo 'create Place city_id="4b457e66-c7c8-4f63-910f-fd91c3b7140b" user_id="4f3f4b42-a4c3-4c20-a492-efff10d00c0b" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=Root#890 HBNB_MYSQL_HOST=127.0.0.1 HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 console.py
+
+echo 'create User email="bob@hbtn.io" password="bobpwd" first_name="Bob" last_name="Dylan"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=Root#890 HBNB_MYSQL_HOST=127.0.0.1 HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 console.py
