@@ -33,7 +33,7 @@ CONFIG_FILE="/etc/nginx/sites-available/default"
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
 if ! grep -q "location /hbnb_static" $CONFIG_FILE; then
-    sudo sed -i "/server {/a \\\tlocation /hbnb_static {\n \\t \\troot /data/web_static/current/;\n \\t}" $CONFIG_FILE
+    sudo sed -i "22i \\\tlocation /hbnb_static {\n \\t \\talias /data/web_static/current/;\n \\t \\ttry_files $uri /number-one.html =404 \n\\t}" $CONFIG_FILE
 
 fi
 
