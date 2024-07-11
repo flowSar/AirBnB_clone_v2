@@ -27,8 +27,11 @@ ln -s /data/web_static/releases/test /data/web_static/current
 
 # Give ownership of the /data/ folder to the ubuntu user AND group and everything inside
 sudo chown -R ubuntu:ubuntu /data/
-FONFIG_FILE="/etc/nginx/sites-available/default"
 
-if ! grep -q "location /hbnb_static" $FONFIG_FILE; then
-    sudo sed -i "/server {/a \\tlocation /hbnb_static {\n \\t \\troot /data/web_static/current/ \n \\t}" $FONFIG_FILE
+CONFIG_FILE="/etc/nginx/sites-available/default"
+# Add the location block to the Nginx configuration file if it does not exist
+if ! grep -q "location /hbnb_static" $CONFIG_FILE; then
+    sudo sed -i "/server {/a \\tlocation /hbnb_static {\n \\t \\troot /data/web_static/current/;\n \\t}" $CONFIG_FILE
 fi
+
+sudo systemctl restart nginx
