@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # install nginx
-# sudo apt update
-# sudo apt install nginx
+sudo apt update
+sudo apt install nginx
 # create folder and index.html
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
@@ -29,10 +29,12 @@ ln -s /data/web_static/releases/test /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 
 CONFIG_FILE="/etc/nginx/sites-available/default"
+
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
 if ! grep -q "location /hbnb_static" $CONFIG_FILE; then
-    sudo sed -i "0,/server {/ { /server {/a \\\tlocation /hbnb_static {\n \\t \\troot /data/web_static/current/;\n \\t}" $CONFIG_FILE
+    sudo sed -i "/server {/a \\\tlocation /hbnb_static {\n \\t \\troot /data/web_static/current/;\n \\t}" $CONFIG_FILE
+
 fi
 
 sudo systemctl restart nginx
