@@ -61,6 +61,4 @@ server {
         }
 }
 EOF
-
-
-sudo systemctl restart nginx
+sudo service nginx restart
