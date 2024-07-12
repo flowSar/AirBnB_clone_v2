@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # doesn some I'm tired from it
-sudo apt update
+
 NGINX_INSTALLED=$(nginx -v 2>&1)
 if ! echo "$NGINX_INSTALLED" | grep -q "nginx"; then
-    sudo apt -y install nginx
+    sudo apt-get update > /dev/null
+    sudo apt-get -y install nginx > /dev/null
 fi
 # create folder and index.html
 sudo mkdir -p /data/web_static/releases/test/
