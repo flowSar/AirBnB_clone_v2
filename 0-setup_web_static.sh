@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # doesn some I'm tired from it
+HOSTNAME=$(hostname)
 
 NGINX_INSTALLED=$(nginx -v 2>&1)
 if ! echo "$NGINX_INSTALLED" | grep -q "nginx"; then
@@ -17,7 +18,7 @@ sudo tee /data/web_static/releases/test/index.html > /dev/null <<EOF
   <head>
   </head>
   <body>
-    Holberton School
+    Holberton School hbnb_static $HOSTNAME
   </body>
 </html>
 EOF
@@ -35,12 +36,12 @@ sudo chown -R ubuntu:ubuntu /data/
 CONFIG_FILE="/etc/nginx/sites-available/default"
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
-hostname=${hostname}
-uri=${uri}
+
+uri="\$uri"
 sudo tee $CONFIG_FILE > /dev/null <<EOF
 server {
-
-        add_header X-Served-By $hostname;
+ 
+        add_header X-Served-By $HOSTNAME;
 
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -60,5 +61,6 @@ server {
         }
 }
 EOF
+
 
 sudo systemctl restart nginx
