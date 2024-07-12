@@ -18,7 +18,7 @@ sudo tee /data/web_static/releases/test/index.html > /dev/null <<EOF
   <head>
   </head>
   <body>
-    Holberton School hbnb_static $HOSTNAME
+    Holberton School
   </body>
 </html>
 EOF
