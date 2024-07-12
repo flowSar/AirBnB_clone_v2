@@ -35,10 +35,12 @@ sudo chown -R ubuntu:ubuntu /data/
 CONFIG_FILE="/etc/nginx/sites-available/default"
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
+hostname=${hostname}
+uri=${uri}
 sudo tee $CONFIG_FILE > /dev/null <<EOF
 server {
 
-        add_header X-Served-By 269106-web-01;
+        add_header X-Served-By $hostname;
 
         listen 80 default_server;
         listen [::]:80 default_server;
