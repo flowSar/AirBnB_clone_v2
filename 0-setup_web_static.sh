@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+sudo apt update
+NGINX_INSTALLED=$(which nginx)
+if ! grep -q "nginx" $NGINX_INSTALLED; then
+    sudo apt -y install nginx
+fi
 # create folder and index.html
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
