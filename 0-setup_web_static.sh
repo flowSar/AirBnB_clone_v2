@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# doesn some I'm tired from it
 sudo apt update
 NGINX_INSTALLED=$(nginx -v 2>&1)
 if ! echo "$NGINX_INSTALLED" | grep -q "nginx"; then
