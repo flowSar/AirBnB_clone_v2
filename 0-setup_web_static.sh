@@ -32,12 +32,30 @@ sudo ln -s /data/web_static/releases/test /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 
 CONFIG_FILE="/etc/nginx/sites-available/default"
-uri="$uri"
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
-if ! grep -q "location /hbnb_static" $CONFIG_FILE; then
-    sudo sed -i "56i \\\tlocation /hbnb_static {\n \\t \\talias /data/web_static/current/;\n \\t \\ttry_files ${uri} /index.html =404; \n\\t}" $CONFIG_FILE
+sudo tee $CONFIG_FILE > /dev/null <<EOF
+server {
 
-fi
+        add_header X-Served-By 269106-web-01;
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        location /hbnb_static {
+                alias /data/web_static/current/;
+                try_files  /index.html =404; 
+        }
+}
+EOF
 
 sudo systemctl restart nginx
