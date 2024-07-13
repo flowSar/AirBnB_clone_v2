@@ -37,13 +37,28 @@ CONFIG_FILE="/etc/nginx/sites-available/default"
 sudo cp $CONFIG_FILE ${CONFIG_FILE}.bak
 # Add the location block to the Nginx configuration file if it does not exist
 
-if ! grep -q "^ *location /hbnb_static {" /etc/nginx/sites-available/default; then
-	sed -i '/server_name _;/a\
-\
-	location /hbnb_static {\
-		alias /data/web_static/current/;\
-		autoindex off;\
-	}' /etc/nginx/sites-available/default
-fi
+uri="\$uri"
+sudo tee $CONFIG_FILE > /dev/null <<EOF
+server {
+ 
+        add_header X-Served-By $HOSTNAME;
 
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        location /hbnb_static {
+                alias /data/web_static/current/;
+                try_files  /index.html =404; 
+        }
+}
+EOF
 sudo service nginx restart
