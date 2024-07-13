@@ -2,8 +2,6 @@
 """pack web static"""
 
 from fabric.api import env, run, put, cd
-from fabric.decorators import task
-from fabric.context_managers import settings
 from datetime import datetime
 from os.path import exists
 
@@ -11,7 +9,7 @@ env.hosts = ['35.175.64.12', '18.234.192.156']
 env.user = 'ubuntu'
 env.key_filename = ['~/.ssh/id_rsa']
 
-@task
+
 def do_deploy(archive_path):
     """Generates a .tgz archive from the contents of the web_static"""
     if not exists(archive_path):
