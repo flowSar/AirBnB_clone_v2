@@ -5,7 +5,7 @@ from fabric import Connection
 from datetime import datetime
 
 
-def do_deploy(archive_path):
+def do_pack():
     """generates a .tgz archive from the contents of the web_static"""
     local_conn = Connection('localhost')
     local_conn.local('mkdir versions')
