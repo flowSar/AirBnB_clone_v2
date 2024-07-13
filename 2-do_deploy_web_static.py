@@ -14,17 +14,20 @@ def do_deploy(archive_path):
     """Generates a .tgz archive from the contents of the web_static"""
     if not exists(archive_path):
         return False
-    
+
     file_name = archive_path.split('/')[-1].split('.')[0]
-    try :
+    try:
         put(archive_path, '/tmp/')
-        cd('/tmp/')
-        run(f"tar -xvzf {file_name}.tgz -C /data/web_static/releases/{file_name}")
-        run(f'rm -r {file_name}.tgz')
-        cd('/data/web_static/')
-        run('rm current')
-        run(f'ln -s /data/web_static/releases/{file_name} /data/web_static/current')
-        
+        # cd('/tmp/')
+        run(f'mkdir -p /data/web_static/releases/')
+        destination = f"/data/web_static/releases/{file_name}"
+        run(f"tar -xvzf /tmp/{file_name}.tgz -C {destination}")
+        run(f'rm -r /tmp/{file_name}.tgz')
+        # cd('/data/web_static/')
+        run('rm /data/web_static/current')
+        destination = "data/web_static/current"
+        run(f'ln -s /data/web_static/releases/{file_name} {destination}')
+
         return True
     except Exception as e:
         return False
