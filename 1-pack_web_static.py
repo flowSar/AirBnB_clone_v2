@@ -11,7 +11,7 @@ def do_pack():
     local_conn.local('mkdir versions')
     today = datetime.today().strftime('%Y%m%d%H%M%S')
     arc_name = f"versions/web_static_{today}.tgz"
-    command = f"tar -cvzf {arc_name} versions/"
+    command = f"tar -cvzf {arc_name} web_static/"
     result = local_conn.local(command)
     if result.failed:
         return None
