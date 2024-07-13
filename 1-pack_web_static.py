@@ -11,7 +11,7 @@ def do_deploy(archive_path):
     local_conn.local('mkdir versions')
     today = datetime.today().strftime('%Y%m%d%H%M%S')
     arc_name = f"versions/web_static_{today}.tgz"
-    command = f"tar -cvzf {arc_name} test_folder/"
+    command = f"tar -cvzf {arc_name} versions/"
     result = local_conn.local(command)
     if result.failed:
         return None
