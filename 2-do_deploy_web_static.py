@@ -18,21 +18,15 @@ def do_deploy(archive_path):
         return False
     
     file_name = archive_path.split('/')[-1].split('.')[0]
-
-    with settings(host_string=env.hosts[0]):
-        deploy_by_server(archive_path, file_name)
-
-    with settings(host_string=env.hosts[1]):
-        deploy_by_server(archive_path, file_name)
-
-def deploy_by_server(archive_path, file_name):
-    put(archive_path, '/tmp/')
-    with cd('/tmp/'):
+    try :
+        put(archive_path, '/tmp/')
+        cd('/tmp/')
         run(f"tar -xvzf {file_name}.tgz -C /data/web_static/releases/{file_name}")
         run(f'rm -r {file_name}.tgz')
-
-    with cd('/data/web_static/'):
+        cd('/data/web_static/')
         run('rm current')
         run(f'ln -s /data/web_static/releases/{file_name} /data/web_static/current')
-
-    return True
+        
+        return True
+    except Exception as e:
+        return False
