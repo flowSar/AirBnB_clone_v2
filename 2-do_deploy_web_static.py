@@ -34,7 +34,8 @@ def do_deploy(archive_path):
         run('sudo rm /data/web_static/current')
         destination = "/data/web_static/current"
         run(f'sudo ln -s /data/web_static/releases/{file_name} {destination}')
-
+        print("New version deployed!")
         return True
     except Exception as e:
+        print(f"Deployment failed: {e}")
         return False
