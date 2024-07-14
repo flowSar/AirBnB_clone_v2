@@ -21,11 +21,11 @@ def do_deploy(archive_path):
         # cd('/tmp/')
         run(f'sudo mkdir -p /data/web_static/releases/')
         destination = f"/data/web_static/releases/{file_name}"
-        run(f"sudo tar -xvzf /tmp/{file_name}.tgz -C {destination}")
+        run(f"sudo tar -xvzf /tmp/{file_name}.tgz -C /data/web_static/releases/")
         run(f'sudo rm -r /tmp/{file_name}.tgz')
         # cd('/data/web_static/')
         run('sudo rm /data/web_static/current')
-        destination = "data/web_static/current"
+        destination = "/data/web_static/current"
         run(f'sudo ln -s /data/web_static/releases/{file_name} {destination}')
 
         return True
