@@ -21,7 +21,6 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         destination = "/data/web_static/releases/"
-        run(f"mkdir -p {destination}")
         # we extract the file and move then from web_static to file_name
         run(f"tar -xvzf /tmp/{file_name}.tgz -C {destination}")
 
@@ -29,14 +28,15 @@ def do_deploy(archive_path):
         destination = f"/data/web_static/releases/{file_name}/"
         origin = f"/data/web_static/releases/web_static/*"
         run(f"mv {origin} {destination}")
-        run("sudo rm -r /data/web_static/releases/web_static/")
-        run(f'rm -rf /tmp/{file_name}.tgz')
+        run("sudo rm -r /data/web_static/releases/web_static")
+        run(f"rm -rf /tmp/{file_name}.tgz")
         # run(f"chmod -R +r /data/web_static/releases/{file_name}")
         run('rm -rf /data/web_static/current')
         destination = "/data/web_static/current"
-        run(f'sudo ln -s /data/web_static/releases/{file_name} {destination}')
+        run(f"ln -s /data/web_static/releases/{file_name} {destination}")
         print("New version deployed!")
         return True
+
     except Exception as e:
         print(f"Deployment failed: {e}")
         return False
