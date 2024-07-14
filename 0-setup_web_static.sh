@@ -57,7 +57,7 @@ server {
 
         location /hbnb_static {
                 alias /data/web_static/current/;
-                try_files  /index.html =404; 
+                autoindex on;
         }
 }
 EOF
