@@ -30,7 +30,7 @@ def do_deploy(archive_path):
         run(f"mv {origin} {destination}")
         run("sudo rm -r /data/web_static/releases/web_static")
         run(f"rm -rf /tmp/{file_name}.tgz")
-        # run(f"chmod -R +r /data/web_static/releases/{file_name}")
+        run(f"chmod -R +r /data/web_static/releases/{file_name}")
         run('rm -rf /data/web_static/current')
         destination = "/data/web_static/current"
         run(f"ln -s /data/web_static/releases/{file_name} {destination}")
