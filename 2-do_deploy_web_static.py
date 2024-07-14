@@ -20,18 +20,19 @@ def do_deploy(archive_path):
     try:
         put(archive_path, '/tmp/')
 
-        run(f'sudo mkdir -p /data/web_static/releases/')
         destination = "/data/web_static/releases/"
+        run(f"mkdir -p {destination}")
         # we extract the file and move then from web_static to file_name
-        run(f"sudo tar -xvzf /tmp/{file_name}.tgz -C {destination}")
-        origin = f"/data/web_static/releases/web_static/*"
-        run(f"sudo mkdir -p /data/web_static/releases/{file_name}")
+        run(f"tar -xvzf /tmp/{file_name}.tgz -C {destination}")
+
+        run(f"mkdir -p /data/web_static/releases/{file_name}")
         destination = f"/data/web_static/releases/{file_name}/"
-        run(f"sudo mv {origin} {destination}")
+        origin = f"/data/web_static/releases/web_static/*"
+        run(f"mv {origin} {destination}")
         run("sudo rm -r /data/web_static/releases/web_static/")
-        run(f'sudo rm -r /tmp/{file_name}.tgz')
-        run(f"sudo chmod -R +r /data/web_static/releases/{file_name}")
-        run('sudo rm /data/web_static/current')
+        run(f'rm -r /tmp/{file_name}.tgz')
+        # run(f"chmod -R +r /data/web_static/releases/{file_name}")
+        run('rm /data/web_static/current')
         destination = "/data/web_static/current"
         run(f'sudo ln -s /data/web_static/releases/{file_name} {destination}')
         print("New version deployed!")
