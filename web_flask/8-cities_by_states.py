@@ -20,6 +20,7 @@ def display_data():
 @app.teardown_appcontext
 def close_storage(exception=None):
     """tear down method"""
+    from models import storage
     storage.close()
 
 
