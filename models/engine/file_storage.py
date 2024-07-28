@@ -68,7 +68,7 @@ class FileStorage:
                     found_key = key
             if found_key:
                 del FileStorage.__objects[found_key]
-    
+
     def close(self):
         """close method for deserializing  the JSON file to objects"""
         self.reload()
