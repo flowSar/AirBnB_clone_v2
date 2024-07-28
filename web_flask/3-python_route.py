@@ -20,6 +20,7 @@ def hello3(subpath):
     text = subpath.replace('_', ' ')
     return f'C {text}'
 
+
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<path:subpath>', strict_slashes=False)
 def hello4(subpath=None):
