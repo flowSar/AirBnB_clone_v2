@@ -25,10 +25,10 @@ def hello3(subpath):
 @app.route('/python/<path:subpath>', strict_slashes=False)
 def hello4(subpath=None):
     if not subpath:
-        return 'python is cool'
+        return 'Python is cool'
     else:
         text = subpath.replace('_', ' ')
-        return f'python {text}'
+        return f'Python {text}'
 
 
 if __name__ == '__main__':
