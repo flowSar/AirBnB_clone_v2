@@ -4,7 +4,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 import os
-from models import storage
 from models.city import City
 
 
@@ -21,11 +20,12 @@ class State(BaseModel, Base):
                               cascade='all, delete, delete-orphan')
     else:
         name = ''
-        cities_list = []
         @property
         def cities(self):
+            from models import storage
+            cities_list = []
             cities_instances = storage.all(City)
             for city in cities_instances.values():
                 if city.state_id == self.id:
-                    self.cities_list.append(city)
-            return self.cities_list
+                    cities_list.append(city)
+            return cities_list
