@@ -11,8 +11,9 @@ def display_data():
     from models import storage
     from models.state import State
     from models.city import City
-    cities = storage.all(City)
-    states = storage.all(State)
+    states = storage.all(Sate)
+    state = State()
+    cities = state.cities()
     storage.close()
     return render_template('7-states_list.html', states=states, cities=cities)
 
