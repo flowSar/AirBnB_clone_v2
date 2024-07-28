@@ -12,8 +12,9 @@ def hello2():
     return 'HBNB'
 
 @app.route('/c/<path:subpath>', strict_slashes=False)
-def display(subpath):
-    return f'C {subpath.replace('_', ' ')}'
+def hello3(subpath):
+    text = subpath.replace('_', ' ')
+    return f'C {text}'
 
 
 if __name__ == '__main__':
