@@ -48,7 +48,7 @@ class DBStorage:
                        'Amenity': Amenity, 'Place': Place, 'Review': Review}
         objects = {}
         if cls:
-            instances = self.__session.query(cls.__name__).all()
+            instances = self.__session.query(class_names[cls.__name__]).all()
             for instance in instances:
                 del instance._sa_instance_state
                 objects[f'{cls.__name__}.{instance.id}'] = instance
