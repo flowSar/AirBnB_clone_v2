@@ -19,12 +19,12 @@ def display_data():
             cities[state.name] = []
             print(f"State: {state.name}")
             for city in state.cities:
-                cities[state.name] += [city.name]
+                cities[state.name] += [city]
     else:
         states = storage.all(State)
         cities = State.cities()
     storage.close()
-    return render_template('7-states_list.html', states=states, cities=cities)
+    return render_template('7-states_list.html', cities=cities)
 
 
 @app.teardown_appcontext
