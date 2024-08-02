@@ -14,7 +14,7 @@ class State(BaseModel, Base):
             name: state name
     """
     __tablename__ = 'states'
-    name = mapped_column(String(128), nullable=False, , sort_order=4)
+    name = mapped_column(String(128), nullable=False, sort_order=4)
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship('City', backref='state',
                               cascade='all, delete, delete-orphan')
