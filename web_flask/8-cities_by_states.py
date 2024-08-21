@@ -21,6 +21,8 @@ def display_data():
     else:
         states = storage.all(State)
     storage.close()
+    for state in states.values():
+        print('cities', state.cities)
     return render_template('8-cities_by_states.html', states=states)
 
 
