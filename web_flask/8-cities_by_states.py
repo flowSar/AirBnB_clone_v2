@@ -13,19 +13,12 @@ app = Flask(__name__)
 @app.route('/cities_by_states', strict_slashes=False)
 def display_data():
 
-    cities = {}
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         states = storage._DBStorage__session.query(State).all()
-        for state in states:
-            cities[state.name] = []
-            print(f"State: {state.name}")
-            for city in state.cities:
-                cities[state.name] += [city]
     else:
         states = storage.all(State)
-        cities = State.cities()
     storage.close()
-    return render_template('7-states_list.html', cities=cities)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
