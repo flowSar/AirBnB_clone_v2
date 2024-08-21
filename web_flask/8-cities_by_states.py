@@ -17,7 +17,7 @@ def display_data():
         all_states = storage._DBStorage__session.query(State).all()
         states = {}
         for state in all_states:
-            states[state.name] = state         
+            states[state.name] = state
     else:
         states = storage.all(State)
     storage.close()
