@@ -14,7 +14,10 @@ app = Flask(__name__)
 def display_data():
 
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        states = storage._DBStorage__session.query(State).all()
+        all_states = storage._DBStorage__session.query(State).all()
+        states = {}
+        for state in all_states:
+            states[state.name] = state         
     else:
         states = storage.all(State)
     storage.close()
